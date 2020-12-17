@@ -1,5 +1,5 @@
 <template>
-  <div class="head">
+  <div class="tags">
     <ul class="types">
       <li class="selected">支出</li>
       <li>收入</li>
@@ -14,21 +14,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.head {
-  padding: 40px;
-  background: #F8F8F8;
-  height: 50px;
+.types {
+  background: #c4c4c4;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  > .types {
+  text-align: center;
+  font-size: 24px;
+  > li {
+    width: 50%;
+    height: 64px;
     display: flex;
-    > li {
-      padding: 3px 35px;
-      background: #e8e8e9;
-      &.selected {
-        background: #ff898d;
-      }
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &.selected::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #333;
     }
   }
 }

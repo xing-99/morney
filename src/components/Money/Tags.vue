@@ -41,9 +41,11 @@ name: "Tags"
 
 <style lang="scss" scoped>
 .tags {
-  border: 1px solid red;
-  padding-top: 16px;
+  padding: 16px;
+  font-size: 14px;
+  display: flex;
   flex-grow: 1;
+  flex-direction: column-reverse;
   > .current{
     display: flex;
     flex-wrap: wrap;
@@ -51,7 +53,7 @@ name: "Tags"
     > li {
       display: flex;
       flex-direction: column;
-      width: 33.33333%;
+      width: 25%;
       align-items: center;
       justify-content: center;
       padding-top: 5px;

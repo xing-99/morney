@@ -15,8 +15,8 @@ export default {
 
 <style lang="scss" scoped>
 .notes {
-  background: #F8F8F8;
   font-size: 14px;
+  background: #f5f5f5;
   padding-left: 16px;
   display: flex;
   align-items: center;
@@ -28,6 +28,7 @@ export default {
     flex-grow: 1;
     background: transparent;
     border: none;
+    padding-right: 16px;
   }
 }
 </style>
