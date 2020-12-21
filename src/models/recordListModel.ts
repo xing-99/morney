@@ -11,10 +11,11 @@ const recordListModel = {
   save() {
     return window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
   },
-  create(record: RecordItem[]) {
+  create(record: RecordItem) {
     const record2 = clone(record);
     record2.createdAt = new Date();
     this.data.push(record2);
+    this.save()
   }
 }
 
