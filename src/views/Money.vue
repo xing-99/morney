@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Layout from '@/components/Layout.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Tags from '@/components/Money/Tags.vue';
@@ -22,11 +21,15 @@ import {Component} from 'vue-property-decorator';
 import store from '@/store/index2';
 
 @Component({
-  components: {Types, Tags, NumberPad, FormItem, Layout},
+  components: {Types, Tags, NumberPad, FormItem},
+  computed: {
+    recordList() {
+      return store.recordList
+    }
+  }
 })
 export default class Money extends Vue {
 
-  recordList = store.recordList
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
