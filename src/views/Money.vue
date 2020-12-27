@@ -7,7 +7,7 @@
                 placeholder="有什么需要记的"
                 @update:value="onUpdateNotes"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags/>
   </Layout>
 </template>
 
@@ -26,15 +26,10 @@ import store from '@/store/index2';
 })
 export default class Money extends Vue {
 
-  tags = store.tagList;
   recordList = store.recordList
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
-
-  onUpdateTags(value: string[]) {
-    this.record.tags = value;
-  }
 
   onUpdateAccount(value: string) {
     this.record.amount = parseFloat(value);
