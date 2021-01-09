@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Chart :options="chartOptions"/>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -28,10 +29,78 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Chart from '@/components/Chart.vue';
+import _ from 'lodash';
+import day from 'dayjs';
+
 @Component({
-  components: {Tabs},
+  components: {Tabs, Chart},
 })
 export default class Statistics extends Vue {
+
+  get keyValueList() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      // this.recordList = [{date:7.3, value:100}, {date:7.2, value:200}]
+      const dateString = day(today)
+          .subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.groupedList, {
+        title: dateString
+      });
+      array.push({
+        key: dateString, value: found ? found.total : 0
+      });
+    }
+    array.sort((a, b) => {
+      if (a.key > b.key) {
+        return 1;
+      } else if (a.key === b.key) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+  get chartOptions() {
+    const keys = this.keyValueList.map(item => item.key);
+    const values = this.keyValueList.map(item => item.value);
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
+      xAxis: {
+        type: 'category',
+        data: keys,
+        axisTick: {alignWithLabel: true},
+        axisLine: {lineStyle: {color: '#666'}},
+        axisLabel: {
+          formatter: function (value: string, index: number) {
+            return value.substr(5);
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [{
+        symbol: 'circle',
+        symbolSize: 12,
+        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
+        // lineStyle: {width: 10},
+        data: values,
+        type: 'line'
+      }],
+      tooltip: {
+        show: true, triggerOn: 'click',
+        position: 'top',
+        formatter: '{c}'
+      }
+    };
+  }
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
   }
@@ -77,6 +146,7 @@ export default class Statistics extends Vue {
     });
     return result;
   }
+
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
