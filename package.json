@@ -11,7 +11,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "dayjs": "^1.10.2",
-    "echarts": "^5.0.0",
+    "echarts": "^4.8.0",
     "lodash": "^4.17.20",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",

@@ -9,6 +9,7 @@ import echarts, {EChartOption, ECharts} from 'echarts';
 export default class Chart extends Vue {
   @Prop() options?: EChartOption;
   chart?: ECharts;
+
   mounted() {
     if (this.options === undefined) {
       return console.error('options 为空');
@@ -18,7 +19,7 @@ export default class Chart extends Vue {
   }
   @Watch('options')
   onOptionsChange(newValue: EChartOption) {
-    this.chart!.setOption(newValue);
+    this.chart?.setOption(newValue);
   }
 }
 </script>
