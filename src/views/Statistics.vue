@@ -64,7 +64,6 @@ export default class Statistics extends Vue {
   get keyValueList() {
     const today = new Date();
     const array = [];
-    console.log(this.groupedList);
     for (let i = 0; i <= 29; i++) {
       const dateString = day(today)
           .subtract(i, 'day').format('YYYY-MM-DD');
@@ -127,7 +126,6 @@ export default class Statistics extends Vue {
     return (this.$store.state as RootState).recordList;
   }
   get groupedList() {
-    console.log('grouped list 被读取了');
     const {recordList} = this;
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
