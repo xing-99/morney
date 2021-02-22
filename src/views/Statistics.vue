@@ -20,6 +20,7 @@
     </ol>
     <div v-else class="noResult">
       目前没有相关记录
+        <Icon name="empty"/>
     </div>
   </Layout>
 </template>
